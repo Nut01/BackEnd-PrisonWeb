@@ -2,7 +2,7 @@ const fs = require('fs');
 const { PrismaClient }  = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const getPrisonersByPID = async (req, res) => {
+const getPrisonersByID = async (req, res) => {
     const P_ID = parseInt( req.params.P_ID);
     console.log(`GET /api/prisoners/${P_ID}`);
 

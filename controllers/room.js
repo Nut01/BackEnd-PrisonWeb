@@ -3,7 +3,7 @@ const { PrismaClient }  = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getRoomByID = async (req, res) => {
-    const R_ID = parseInt(req.body.R_ID);
+    const R_ID = parseInt(req.params.R_ID);
     console.log("GET /api/room/" + R_ID);
 
     try {
@@ -78,7 +78,7 @@ const updateRoom = async (req, res) => {
 }
 
 const deleteRoom = async (req, res) => {
-    const R_ID = parseInt(req.body.R_ID);
+    const R_ID = parseInt(req.params.R_ID);
     console.log("DELETE /api/room/" + R_ID);
 
     try {

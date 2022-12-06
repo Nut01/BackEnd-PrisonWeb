@@ -3,7 +3,7 @@ const { PrismaClient }  = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getZoneByID = async (req, res) => {
-    const Z_ID = parseInt(req.body.Z_ID);
+    const Z_ID = parseInt(req.params.Z_ID);
     console.log("GET /api/zone/" + Z_ID);
 
     try {
@@ -75,7 +75,7 @@ const updateZone = async (req, res) => {
 }
 
 const deleteZone = async (req, res) => {
-    const Z_ID = parseInt(req.body.Z_ID);
+    const Z_ID = parseInt(req.params.Z_ID);
     console.log("DELETE /api/zone/" + Z_ID);
 
     try {

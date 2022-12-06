@@ -3,7 +3,7 @@ const { PrismaClient }  = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getPrisonByName = async (req, res) => {
-    const Prison_NAME = req.body.Prison_NAME;
+    const Prison_NAME = req.params.Prison_NAME;
     console.log("GET /api/prison/" + Prison_NAME);
 
     try {
@@ -75,7 +75,7 @@ const updatePrison = async (req, res) => {
 }
 
 const deletePrison = async (req, res) => {
-    const Prison_NAME = req.body.Prison_NAME;
+    const Prison_NAME = req.params.Prison_NAME;
     console.log("DELETE /api/prison/" + Prison_NAME);
 
     try {
