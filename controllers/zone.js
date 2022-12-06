@@ -95,3 +95,10 @@ const deleteZone = async (req, res) => {
         res.end()
     }
 }
+
+module.exports = {
+    getZoneByID,
+    createZone,
+    updateZone,
+    deleteZone
+}

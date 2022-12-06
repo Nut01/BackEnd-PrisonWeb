@@ -95,3 +95,10 @@ const deletePrison = async (req, res) => {
         res.end
     }
 }
+
+module.exports = {
+    getPrisonByName,
+    createPrison,
+    updatePrison,
+    deletePrison
+}

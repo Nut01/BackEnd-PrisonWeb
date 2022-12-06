@@ -101,3 +101,10 @@ const deleteWarder = async (req, res) => {
         res.end()
     }
 }
+
+module.exports = {
+    getWardersByID,
+    createWarder,
+    updateWarder,
+    deleteWarder
+}
