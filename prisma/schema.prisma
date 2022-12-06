@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model prison {
+  Prison_NAME      String      @id @db.VarChar(30)
+  Prison_PLACE     String      @db.VarChar(200)
+  Prison_MAXNUMBER Int
+  prisoners        prisoners[]
+  rooms            rooms[]
+  warder           warder[]
+  zone             zone[]
+}
+
+model prisoners {
+  P_ID         String   @id @db.VarChar(6)
+  P_NAME       String   @db.VarChar(50)
+  P_BIRTHDAY   DateTime @db.Date
+  P_CRIME      String   @db.VarChar(200)
+  P_PUNISHMENT String   @db.VarChar(200)
+  P_DATEIN     DateTime @db.Date
+  P_DATEOUT    DateTime @db.Date
+  P_PRISONNAME String   @db.VarChar(30)
+  P_ZONEID     Int
+  P_ROOMID     Int
+  prison       prison   @relation(fields: [P_PRISONNAME], references: [Prison_NAME], onUpdate: Restrict, map: "prisoners_ibfk_1")
+  rooms        rooms    @relation(fields: [P_ROOMID], references: [R_ID], onUpdate: Restrict, map: "prisoners_ibfk_2")
+  zone         zone     @relation(fields: [P_ZONEID], references: [Z_ID], onUpdate: Restrict, map: "prisoners_ibfk_3")
+
+  @@index([P_PRISONNAME], map: "P_PRISONNAME")
+  @@index([P_ROOMID], map: "P_ROOMNUMBER")
+  @@index([P_ZONEID], map: "P_ZONEID")
+}
+
+model rooms {
+  R_ID         Int         @id
+  R_PRISONNAME String      @db.VarChar(30)
+  R_MAXNUMBER  Int
+  R_ZONEID     Int
+  prisoners    prisoners[]
+  prison       prison      @relation(fields: [R_PRISONNAME], references: [Prison_NAME], onUpdate: Restrict, map: "rooms_ibfk_1")
+  zone         zone        @relation(fields: [R_ZONEID], references: [Z_ID], onUpdate: Restrict, map: "rooms_ibfk_2")
+
+  @@index([R_PRISONNAME], map: "R_PRISONNAME")
+  @@index([R_ZONEID], map: "R_ZONEID")
+}
+
+model warder {
+  W_ID         Int    @id
+  W_PASSWORD   String @db.VarChar(20)
+  W_NAME       String @db.VarChar(50)
+  W_PRISONNAME String @db.VarChar(50)
+  W_ZONEID     Int
+  prison       prison @relation(fields: [W_PRISONNAME], references: [Prison_NAME], onUpdate: Restrict, map: "warder_ibfk_2")
+  zone         zone   @relation(fields: [W_ZONEID], references: [Z_ID], onUpdate: Restrict, map: "warder_ibfk_3")
+
+  @@index([W_PRISONNAME], map: "W_PRISONNAME")
+  @@index([W_ZONEID], map: "W_ZONEID")
+}
+
+model zone {
+  Z_ID         Int         @id
+  Z_PRISONNAME String      @db.VarChar(30)
+  Z_MAXNUMBER  Int
+  prisoners    prisoners[]
+  rooms        rooms[]
+  warder       warder[]
+  prison       prison      @relation(fields: [Z_PRISONNAME], references: [Prison_NAME], onUpdate: Restrict, map: "zone_ibfk_1")
+
+  @@index([Z_PRISONNAME], map: "Z_PRISONNAME")
+}

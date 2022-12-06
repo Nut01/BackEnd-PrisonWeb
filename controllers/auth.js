@@ -6,7 +6,7 @@ const login = async(req, res) => {
     console.log('GET /api/login')
     console.log(req.body)
 
-    const { W_ID, W_Password } = req.body
+    const { W_ID, W_PASSWORD } = req.body
     try {
         const user = await prisma.warden.findUnique({
             where: {
@@ -15,7 +15,7 @@ const login = async(req, res) => {
         })
         console.log(user)
         if (user) {
-            if (user.W_Password == W_Password) {
+            if (user.W_PASSWORD == W_PASSWORD) {
                 res.json(user)
                 res.status(200)
                 console.log('Login Successful')
