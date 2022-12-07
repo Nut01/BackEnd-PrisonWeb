@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getWarderByID,
+    getWardersByID,
     createWarder,
     updateWarder,
     deleteWarder
 } = require("../controllers/warder.js");
 
-router.get("/:W_ID", getWarderByID);
+router.get("/:W_ID", getWardersByID);
 
 router.post("/", createWarder);
 

@@ -8,7 +8,7 @@ const login = async(req, res) => {
 
     const { W_ID, W_PASSWORD } = req.body
     try {
-        const user = await prisma.warden.findUnique({
+        const user = await prisma.warder.findUnique({
             where: {
                 W_ID: parseInt(W_ID),
             }
@@ -22,21 +22,21 @@ const login = async(req, res) => {
                 res.end()
             }
             else {
-                res.json({ message: 'พาสเวิร์ดไม่ถูกต้อง' })
+                res.json(null)
                 res.status(400)
                 console.log('Incorrect Password')
                 res.end()
             }
         }
         else {
-            res.json({ message: 'ไม่พบบัญชีผู้ใช้' })
+            res.json(null)
             res.status(400)
             console.log('User not found')
             res.end()
         }
     }
     catch ( e ) {
-
+        console.log(e)
     }
 }
 

@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    getPrisonerByID,
+    getPrisonersByID,
     createPrisoner,
     updatePrisoner,
     deletePrisoner
 } = require("../controllers/prisoner.js");
 
-router.get("/:P_ID", getPrisonerByID);
+router.get("/:P_ID", getPrisonersByID);
 
 router.post("/", createPrisoner);
 
