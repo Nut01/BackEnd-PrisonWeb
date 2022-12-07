@@ -118,7 +118,7 @@ const deletePrisoner = async (req, res) => {
 }
 
 module.exports = {
-    getPrisonersByPID,
+    getPrisonersByID,
     createPrisoner,
     updatePrisoner,
     deletePrisoner

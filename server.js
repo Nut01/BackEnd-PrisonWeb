@@ -1,21 +1,33 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-
-const port = process.env.PORT || 4000;
+const express = require( "express" );
+const cors = require( "cors" );
+require( "dotenv" ).config();
+global.__basedir = __dirname;
+const PORT = process.env.PORT || 4000;
 const app = express();
 
-global.__basedir = __dirname;
+var corsOptions = {
+    origin : "http://localhost:3000",
+    certificates : true
+}
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use( cors( corsOptions ) );
+app.use( express.json() );
+app.use( express.urlencoded( { extended : true } ) );
 
-const corsOptions = {
-  origin: "http://localhost:4000",
-  credentials: true,
-};
+const auth = require( "./routes/auth" );
+const prisoner = require( "./routes/prisoner" );
+const prison = require( "./routes/prison" );
+const room = require( "./routes/room" );
+const warder = require( "./routes/warder" );
+const zone = require( "./routes/zone" );
 
-app.listen(port, () => {
-  console.log("Server is running...");
-  console.log(`Listening on port ${port}`);
+app.use("/auth", auth);
+app.use("/prisoner", prisoner);
+app.use("/prison", prison);
+app.use("/room", room);
+app.use("/warder", warder);
+app.use("/zone", zone);
+
+app.listen(PORT, () => {
+    console.log( `Server is running on port ${PORT}`);
 });
